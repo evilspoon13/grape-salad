@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#171336] text-slate-950 antialiased;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(255, 214, 10, 0.28), transparent 24rem),
+      radial-gradient(circle at 88% 8%, rgba(255, 59, 145, 0.22), transparent 22rem),
+      radial-gradient(circle at 78% 82%, rgba(0, 209, 255, 0.2), transparent 26rem);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md border-2 border-slate-950 bg-[#ffe14d] px-4 py-2 text-sm font-black uppercase text-slate-950 shadow-[4px_4px_0_#0f1028] transition hover:-translate-y-0.5 hover:bg-[#fff06d] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md border-2 border-slate-950 bg-white px-4 py-2 text-sm font-black uppercase text-slate-950 shadow-[3px_3px_0_#0f1028] transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
+  }
+
+  .field {
+    @apply w-full rounded-md border-2 border-slate-950 bg-white px-3 py-2 text-sm font-semibold text-slate-950 outline-none transition placeholder:font-medium placeholder:text-slate-400 focus:ring-4 focus:ring-[#00d1ff]/40;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-md border-2 border-slate-950 px-2.5 py-1 text-xs font-black uppercase shadow-[2px_2px_0_#0f1028];
+  }
+
+  .party-card {
+    @apply rounded-md border-4 border-slate-950 bg-white shadow-[8px_8px_0_#0f1028];
+  }
+}

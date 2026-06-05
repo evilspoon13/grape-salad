@@ -1,9 +1,9 @@
-// M3 — yes/no toggle, amount, optional comment. Surfaces 400 (funds) / 409 (closed).
 import { useState } from "react";
 
 import { ApiError } from "../../lib/api";
 import { usePlaceBet } from "../../lib/queries";
 import type { Position } from "../../lib/types";
+import { Card } from "../../components/ui";
 
 export function BetForm({ marketId }: { marketId: string }) {
   const [position, setPosition] = useState<Position>("yes");
@@ -16,49 +16,63 @@ export function BetForm({ marketId }: { marketId: string }) {
       await placeBet.mutateAsync({ position, amount, comment: comment || null });
       setComment("");
     } catch (err) {
-      // 400 insufficient funds / 409 market closed are surfaced via placeBet.error below.
       if (!(err instanceof ApiError)) throw err;
     }
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border bg-white p-3">
-      <div className="flex gap-2">
-        {(["yes", "no"] as const).map((p) => (
-          <button
-            key={p}
-            onClick={() => setPosition(p)}
-            className={`flex-1 rounded-lg border py-1.5 text-sm ${
-              position === p ? "border-indigo-500 bg-indigo-50" : ""
-            }`}
-          >
-            {p}
-          </button>
-        ))}
+    <Card>
+      <div className="flex flex-col gap-3">
+        <h2 className="font-semibold text-slate-950">Place a bet</h2>
+        <div className="grid grid-cols-2 gap-2">
+          {(["yes", "no"] as const).map((p) => (
+            <button
+              key={p}
+              onClick={() => setPosition(p)}
+              className={`rounded-md border px-3 py-2 text-sm font-semibold capitalize transition ${
+                position === p
+                  ? p === "yes"
+                    ? "border-slate-950 bg-[#35e58f] text-slate-950 shadow-[3px_3px_0_#0f1028]"
+                    : "border-slate-950 bg-[#ff4f8b] text-white shadow-[3px_3px_0_#0f1028]"
+                  : "border-slate-950 bg-white text-slate-950 hover:bg-cyan-100"
+              }`}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+        <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
+          <label className="text-sm font-medium text-slate-600">
+            Amount
+            <input
+              type="number"
+              min={1}
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              className="field mt-1"
+            />
+          </label>
+          <label className="text-sm font-medium text-slate-600">
+            Comment
+            <input
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Optional trash talk"
+              className="field mt-1"
+            />
+          </label>
+        </div>
+        <button
+          onClick={submit}
+          disabled={placeBet.isPending || amount < 1}
+          className="btn-primary self-start"
+        >
+          {placeBet.isPending ? "Placing..." : "Place bet"}
+        </button>
+        {placeBet.error instanceof ApiError && (
+          <p className="text-sm font-medium text-rose-600">{placeBet.error.detail}</p>
+        )}
       </div>
-      <input
-        type="number"
-        min={1}
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-        className="rounded border p-2 text-sm"
-      />
-      <input
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="Optional trash talk"
-        className="rounded border p-2 text-sm"
-      />
-      <button
-        onClick={submit}
-        disabled={placeBet.isPending}
-        className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm text-white disabled:opacity-50"
-      >
-        Place bet
-      </button>
-      {placeBet.error instanceof ApiError && (
-        <p className="text-sm text-red-500">{placeBet.error.detail}</p>
-      )}
-    </div>
+    </Card>
   );
 }

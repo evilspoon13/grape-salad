@@ -24,10 +24,12 @@ const nowIso = () => new Date().toISOString();
 // ---- Seed data ------------------------------------------------------------
 // Stable ids so a hard-coded localStorage user survives nicely during dev.
 const profiles: Profile[] = [
-  { id: "11111111-1111-1111-1111-111111111111", display_name: "Maya", avatar_url: null, coin_balance: 1000 },
-  { id: "22222222-2222-2222-2222-222222222222", display_name: "Jake", avatar_url: null, coin_balance: 1000 },
-  { id: "33333333-3333-3333-3333-333333333333", display_name: "Sam", avatar_url: null, coin_balance: 1000 },
-  { id: "44444444-4444-4444-4444-444444444444", display_name: "Priya", avatar_url: null, coin_balance: 1000 },
+  { id: "11111111-1111-1111-1111-111111111111", display_name: "Cam", avatar_url: null, coin_balance: 1000 },
+  { id: "22222222-2222-2222-2222-222222222222", display_name: "Ty", avatar_url: null, coin_balance: 1000 },
+  { id: "33333333-3333-3333-3333-333333333333", display_name: "Mat", avatar_url: null, coin_balance: 1000 },
+  { id: "44444444-4444-4444-4444-444444444444", display_name: "Nat", avatar_url: null, coin_balance: 1000 },
+  { id: "55555555-5555-5555-5555-555555555555", display_name: "Cat", avatar_url: null, coin_balance: 1000 },
+  { id: "66666666-6666-6666-6666-666666666666", display_name: "Tate", avatar_url: null, coin_balance: 1000 },
 ];
 
 interface RawPost {
@@ -80,7 +82,7 @@ const markets: RawMarket[] = [
   {
     id: uid(),
     creator_id: profiles[0].id,
-    question: "Will Jake hit the gym 3x this week?",
+    question: "Will Ty hit the gym 3x this week?",
     description: "settles Sunday",
     status: "open",
     outcome: null,

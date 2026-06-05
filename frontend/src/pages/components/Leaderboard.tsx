@@ -1,4 +1,5 @@
-// M3 — coin balances leaderboard from GET /api/profiles.
+import { Card } from "../../components/ui";
+import { UserBadge } from "../../components/UserBadge";
 import { useProfiles } from "../../lib/queries";
 
 export function Leaderboard() {
@@ -8,18 +9,23 @@ export function Leaderboard() {
   if (ranked.length === 0) return null;
 
   return (
-    <div className="rounded-lg border bg-white p-3">
-      <h2 className="mb-2 text-sm font-semibold text-gray-500">Leaderboard</h2>
-      <ol className="flex flex-col gap-1 text-sm">
+    <Card>
+      <h2 className="text-sm font-black uppercase text-slate-700">
+        Coin leaderboard
+      </h2>
+      <ol className="mt-3 flex flex-col gap-2">
         {ranked.map((p, i) => (
-          <li key={p.id} className="flex justify-between">
-            <span>
-              {i + 1}. {p.display_name}
+          <li key={p.id} className="flex items-center gap-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 border-slate-950 bg-[#ffe14d] text-xs font-black text-slate-950 shadow-[2px_2px_0_#0f1028]">
+              {i + 1}
             </span>
-            <span>{p.coin_balance} 🪙</span>
+            <UserBadge user={p} />
+            <span className="ml-auto text-sm font-black text-slate-950">
+              {p.coin_balance.toLocaleString()}
+            </span>
           </li>
         ))}
       </ol>
-    </div>
+    </Card>
   );
 }
