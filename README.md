@@ -18,12 +18,17 @@ MVP for a trusted friend group. **No auth yet** — identity is a spoofable `X-U
 The two halves meet at the **API Contract** (base path `/api`, `X-User-Id` header). The backend's
 Swagger at `<backend>/docs` is the live source of truth.
 
+**New here? Read [`INTEGRATION.md`](INTEGRATION.md)** — it explains how the two halves fit
+together, how to develop each independently (the frontend runs against a mock backend with no
+backend at all), and how they converge. `make help` lists every common task.
+
 ## Dividing the work
 
 - **Backend dev** owns `/backend`. Start with `cd backend && cat README.md`.
 - **Frontend dev** owns `/frontend`. Start with `cd frontend && cat README.md`.
 - Don't touch the other half. When you change a request/response shape, update the relevant
-  plan's contract section and tell your counterpart.
+  plan's contract section and tell your counterpart (see the contract-change steps in
+  `INTEGRATION.md`).
 
 ## Quick start
 
@@ -41,5 +46,5 @@ Frontend:
 cd frontend
 npm install
 cp .env.example .env   # set VITE_API_BASE_URL=http://localhost:8000
-npm run dev
+npm run dev            # or: VITE_USE_MOCKS=true npm run dev  (no backend needed)
 ```

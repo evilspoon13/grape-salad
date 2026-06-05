@@ -11,6 +11,16 @@ cp .env.example .env        # set VITE_API_BASE_URL=http://localhost:8000
 npm run dev                 # http://localhost:5173
 ```
 
+**No backend yet?** Run fully offline against the in-memory mock backend (`src/mocks/`),
+which implements the whole contract — including working betting:
+
+```bash
+VITE_USE_MOCKS=true npm run dev
+```
+
+State is in-memory and resets on reload. Flip `VITE_USE_MOCKS` back to `false` (the default)
+to hit the real backend at `VITE_API_BASE_URL`.
+
 Generate typed API types from the backend's live OpenAPI (optional, recommended):
 
 ```bash
@@ -28,6 +38,7 @@ src/
     queries.ts      one TanStack Query hook per endpoint
     types.ts        hand-written mirror of the API contract (swap for generated api-types.ts)
   context/user.tsx  current-user (selected profile) via localStorage
+  mocks/            in-memory backend implementing the whole contract (VITE_USE_MOCKS=true)
   components/        shared: UserPicker, AppHeader, UserBadge, OddsBar, AudioPlayer
   pages/            Feed, Markets, MarketDetail, Voice, VoiceThread, Digest
   pages/components/  PostComposer, CreateMarketForm, BetForm, ResolveControl, Recorder, Leaderboard

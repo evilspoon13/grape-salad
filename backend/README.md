@@ -17,7 +17,8 @@ uvicorn app.main:app --reload
 Create the schema (quick first pass) or use Alembic — see `alembic/README.md`. Then seed:
 
 ```bash
-python -m scripts.seed_profiles
+python -m scripts.create_db        # create all tables from the SQLModel metadata
+python -m scripts.seed_profiles    # seed the friend group
 ```
 
 Run the math tests:

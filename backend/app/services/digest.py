@@ -3,7 +3,8 @@ from __future__ import annotations
 
 from datetime import date
 
-from app.config import settings
+# When implementing, pull the key/model from app.config.settings
+# (settings.ANTHROPIC_API_KEY, settings.ANTHROPIC_MODEL).
 
 DIGEST_SYSTEM_PROMPT = (
     "You are the editor of a private newsletter for a tight-knit group of college friends "
