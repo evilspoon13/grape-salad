@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+alembic
+asyncpg
+pydantic-settings
+supabase
+anthropic
+
+# dev / tests
+pytest
+pytest-asyncio
+httpx
